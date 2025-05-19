@@ -18,7 +18,7 @@
         "tags": ["Markdown", "写作", "教程"]
     },
     {
-        "id": "DNS-test",
+        "id": "dns-test",
         "title": "DNS放大攻击本地尝试",
         "date": "2025-02-13",
         "excerpt": "在本地环境中尝试 DNS 放大攻击的实验记录。",
