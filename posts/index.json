@@ -23,7 +23,7 @@
         "date": "2025-02-13",
         "excerpt": "在本地环境中尝试 DNS 放大攻击的实验记录。",
         "thumbnail": "images/dns-test.jpg",
-        "contentPath": "/posts/DNS-test.md",
+        "contentPath": "/posts/dns-test.md",
         "tags": ["DNS", "网络安全", "实验"]
     }
 ]
