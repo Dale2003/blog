@@ -6,9 +6,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchButton = document.getElementById('searchButton');
     // 获取排序选择框
     const sortSelect = document.getElementById('sortSelect');
+    // 获取加载更多按钮容器和按钮
+    const loadMoreContainer = document.getElementById('loadMoreContainer');
+    const loadMoreButton = document.getElementById('loadMoreButton');
     
     // 声明一个变量来存储所有文章
     let allPosts = [];
+    // 当前显示的文章
+    let currentPosts = [];
+    // 每页显示的文章数量
+    const postsPerPage = 9;
+    // 当前页码
+    let currentPage = 1;
+    // 当前排序方式
+    let currentSortMethod = 'date-desc';
+    // 当前搜索关键词
+    let currentSearchTerm = '';
 
     // 获取博客文章列表
     fetchBlogPosts()
@@ -16,8 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // 保存所有文章
             allPosts = posts;
             
-            // 初始加载时按日期（最新）排序并渲染文章
-            renderPosts(allPosts, 'date-desc');
+            // 初始加载时按日期（最新）排序并渲染第一页文章
+            loadPostsPage(1, 'date-desc', '');
         })
         .catch(error => {
             blogList.innerHTML = `<div class="error">加载博客列表时出错: ${error.message}</div>`;
@@ -38,23 +51,79 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 排序选择框变化事件
     sortSelect.addEventListener('change', () => {
-        const searchTerm = searchInput.value.trim().toLowerCase();
-        const filteredPosts = searchTerm ? 
-            filterPosts(allPosts, searchTerm) : 
-            [...allPosts];
-        
-        renderPosts(filteredPosts, sortSelect.value);
+        currentSortMethod = sortSelect.value;
+        // 重新加载第一页
+        loadPostsPage(1, currentSortMethod, currentSearchTerm);
+    });
+    
+    // 加载更多按钮点击事件
+    loadMoreButton.addEventListener('click', () => {
+        // 加载下一页
+        loadNextPage();
     });
     
     // 搜索文章函数
     function searchPosts() {
         const searchTerm = searchInput.value.trim().toLowerCase();
-        if (searchTerm) {
-            const filteredPosts = filterPosts(allPosts, searchTerm);
-            renderPosts(filteredPosts, sortSelect.value);
+        currentSearchTerm = searchTerm;
+        // 重新加载第一页
+        loadPostsPage(1, currentSortMethod, searchTerm);
+    }
+    
+    // 加载下一页文章
+    function loadNextPage() {
+        currentPage++;
+        loadPostsPage(currentPage, currentSortMethod, currentSearchTerm, true);
+    }
+    
+    // 加载指定页码的文章
+    function loadPostsPage(page, sortMethod, searchTerm, append = false) {
+        // 重置当前页码
+        if (!append) {
+            currentPage = page;
+            // 清空文章列表
+            blogList.innerHTML = '';
+        }
+        
+        // 过滤文章
+        let filteredPosts = searchTerm ? 
+            filterPosts(allPosts, searchTerm) : 
+            [...allPosts];
+        
+        // 排序文章
+        filteredPosts = sortPosts(filteredPosts, sortMethod);
+        
+        // 计算分页
+        const totalPosts = filteredPosts.length;
+        const startIndex = (page - 1) * postsPerPage;
+        const endIndex = startIndex + postsPerPage;
+        const postsToShow = filteredPosts.slice(startIndex, endIndex);
+        
+        // 没有结果时显示提示
+        if (totalPosts === 0) {
+            blogList.innerHTML = '<div class="no-results">没有找到匹配的文章</div>';
+            loadMoreContainer.style.display = 'none';
+            return;
+        }
+        
+        // 渲染文章
+        postsToShow.forEach(post => {
+            const postCard = createPostCard(post);
+            blogList.appendChild(postCard);
+        });
+        
+        // 更新当前显示的文章
+        if (append) {
+            currentPosts = [...currentPosts, ...postsToShow];
         } else {
-            // 如果搜索框为空，显示所有文章
-            renderPosts(allPosts, sortSelect.value);
+            currentPosts = postsToShow;
+        }
+        
+        // 显示或隐藏加载更多按钮
+        if (endIndex < totalPosts) {
+            loadMoreContainer.style.display = 'flex';
+        } else {
+            loadMoreContainer.style.display = 'none';
         }
     }
     
@@ -64,26 +133,6 @@ document.addEventListener('DOMContentLoaded', () => {
             post.title.toLowerCase().includes(searchTerm) || 
             post.excerpt.toLowerCase().includes(searchTerm)
         );
-    }
-    
-    // 渲染文章列表函数
-    function renderPosts(posts, sortMethod) {
-        // 根据排序方式排序文章
-        const sortedPosts = sortPosts(posts, sortMethod);
-        
-        // 清空加载中的提示
-        blogList.innerHTML = '';
-        
-        if (sortedPosts.length === 0) {
-            blogList.innerHTML = '<div class="no-results">没有找到匹配的文章</div>';
-            return;
-        }
-        
-        // 渲染每篇博客的卡片
-        sortedPosts.forEach(post => {
-            const postCard = createPostCard(post);
-            blogList.appendChild(postCard);
-        });
     }
     
     // 排序文章函数

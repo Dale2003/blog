@@ -280,6 +280,36 @@ header p {
     width: 100%;
 }
 
+/* 新增：加载更多按钮样式 */
+.load-more-container {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0 50px;
+}
+
+.load-more-button {
+    background-color: #4285f4;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 8px rgba(66, 133, 244, 0.3);
+}
+
+.load-more-button:hover {
+    background-color: #3367d6;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(66, 133, 244, 0.4);
+}
+
+.load-more-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(66, 133, 244, 0.3);
+}
+
 /* 单篇博客文章样式 */
 .post-container {
     background-color: white;

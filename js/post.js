@@ -74,10 +74,96 @@ async function renderMarkdown(contentPath, container) {
                 hljs.highlightBlock(block);
             }
         });
+        
+        // 为所有图片添加点击预览功能
+        setupImagePreview(container);
     } catch (error) {
         console.error('渲染Markdown时出错:', error);
         container.innerHTML = `<div class="error">加载文章内容时出错: ${error.message}</div>`;
     }
+}
+
+// 设置图片点击预览功能
+function setupImagePreview(container) {
+    // 获取容器内所有图片
+    const images = container.querySelectorAll('img');
+    
+    // 为每张图片添加点击事件
+    images.forEach(img => {
+        img.style.cursor = 'pointer'; // 更改鼠标指针为手型，表示可点击
+        img.addEventListener('click', function() {
+            // 创建全屏预览元素
+            showLightbox(this.src, this.alt);
+        });
+    });
+}
+
+// 显示图片预览 lightbox
+function showLightbox(imgSrc, imgAlt) {
+    // 创建 lightbox 容器
+    const lightbox = document.createElement('div');
+    lightbox.className = 'lightbox';
+    lightbox.style.position = 'fixed';
+    lightbox.style.top = '0';
+    lightbox.style.left = '0';
+    lightbox.style.width = '100%';
+    lightbox.style.height = '100%';
+    lightbox.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+    lightbox.style.display = 'flex';
+    lightbox.style.justifyContent = 'center';
+    lightbox.style.alignItems = 'center';
+    lightbox.style.zIndex = '1000';
+    lightbox.style.cursor = 'zoom-out';
+    
+    // 创建图片元素
+    const img = document.createElement('img');
+    img.src = imgSrc;
+    img.alt = imgAlt;
+    img.style.maxWidth = '90%';
+    img.style.maxHeight = '90%';
+    img.style.objectFit = 'contain';
+    img.style.boxShadow = '0 0 20px rgba(0, 0, 0, 0.5)';
+    
+    // 创建关闭按钮
+    const closeBtn = document.createElement('div');
+    closeBtn.innerHTML = '&times;';
+    closeBtn.style.position = 'absolute';
+    closeBtn.style.top = '20px';
+    closeBtn.style.right = '30px';
+    closeBtn.style.fontSize = '40px';
+    closeBtn.style.color = 'white';
+    closeBtn.style.cursor = 'pointer';
+    
+    // 添加图片标题（如果有）
+    if (imgAlt) {
+        const caption = document.createElement('div');
+        caption.textContent = imgAlt;
+        caption.style.position = 'absolute';
+        caption.style.bottom = '20px';
+        caption.style.width = '100%';
+        caption.style.textAlign = 'center';
+        caption.style.color = 'white';
+        caption.style.padding = '10px';
+        caption.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+        lightbox.appendChild(caption);
+    }
+    
+    // 将元素添加到 lightbox 容器
+    lightbox.appendChild(img);
+    lightbox.appendChild(closeBtn);
+    
+    // 点击 lightbox 或关闭按钮时关闭预览
+    lightbox.addEventListener('click', function() {
+        document.body.removeChild(lightbox);
+    });
+    
+    // 防止点击图片时关闭 lightbox（只有点击外部区域才关闭）
+    img.addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+    
+    // 将 lightbox 添加到页面
+    document.body.appendChild(lightbox);
 }
 
 // 显示错误信息
