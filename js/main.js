@@ -166,11 +166,16 @@ async function fetchBlogPosts() {
         // 为每篇文章添加字数统计
         for (const post of posts) {
             try {
-                const contentResponse = await fetch(`/posts/${post.id}.md`);
+                // 使用正确的文件路径从contentPath获取
+                const contentPath = post.contentPath || `/posts/${post.id}.md`;
+                const contentResponse = await fetch(contentPath);
                 if (contentResponse.ok) {
                     const content = await contentResponse.text();
-                    // 简单的字数统计（去除Markdown标记后的大致字数）
+                    // 字数统计
                     post.wordCount = countWords(content);
+                } else {
+                    console.error(`无法加载文章 ${post.id} 内容，HTTP 状态码: ${contentResponse.status}`);
+                    post.wordCount = 0;
                 }
             } catch (error) {
                 console.error(`获取文章 ${post.id} 内容时出错:`, error);
@@ -187,21 +192,40 @@ async function fetchBlogPosts() {
 
 // 计算文本字数
 function countWords(text) {
+    if (!text) return 0;
+    
+    // 去除前言部分 (通常以"前言："开头的部分)
+    text = text.replace(/^前言：.*?\n\n/s, '');
+    
     // 去除Markdown标记和特殊字符
     const cleanText = text
         .replace(/```[\s\S]*?```/g, '') // 代码块
-        .replace(/`.*?`/g, '')         // 行内代码
+        .replace(/`.*?`/g, '')          // 行内代码
         .replace(/\[.*?\]\(.*?\)/g, '') // 链接
         .replace(/\!\[.*?\]\(.*?\)/g, '') // 图片
-        .replace(/\*\*.*?\*\*/g, '')    // 粗体
-        .replace(/\*.*?\*/g, '')        // 斜体
-        .replace(/#/g, '')             // 标题
-        .replace(/\n/g, ' ')           // 换行符替换为空格
-        .replace(/\s+/g, ' ')          // 多个空格替换为一个
+        .replace(/\*\*.*?\*\*/g, '$1')   // 保留粗体内容
+        .replace(/\*.*?\*/g, '$1')       // 保留斜体内容
+        .replace(/#/g, '')               // 标题符号
+        .replace(/^\s*[>\|-]/gm, '')     // 引用和表格符号
+        .replace(/\$\$[\s\S]*?\$\$/g, '') // 数学公式块
+        .replace(/\$.*?\$/g, '')         // 内联数学公式
+        .replace(/\\[a-zA-Z]+/g, '')     // LaTeX命令
+        .replace(/[\{\}]/g, '')          // 花括号
+        .replace(/\\/g, '')              // 反斜杠
         .trim();
     
     // 中文和英文混合字数统计
-    return cleanText.length;
+    // 对于中文字符和英文单词分别计数
+    const chineseMatch = cleanText.match(/[\u4e00-\u9fa5]/g);
+    const chineseCount = chineseMatch ? chineseMatch.length : 0;
+    
+    // 计算英文单词数
+    const englishText = cleanText.replace(/[\u4e00-\u9fa5]/g, '');
+    const englishWords = englishText.split(/\s+/).filter(word => word.length > 0);
+    const englishCount = englishWords.length;
+    
+    // 返回中文字符数和英文单词数的总和
+    return chineseCount + englishCount;
 }
 
 // 创建博客卡片元素
