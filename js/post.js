@@ -79,22 +79,25 @@ async function renderMarkdown(contentPath, container) {
         // 自定义链接渲染
         const originalLinkRenderer = renderer.link;
         renderer.link = function(href, title, text) {
-            // 检查链接是否指向PDF文件
-            if (href.toLowerCase().endsWith('.pdf')) {
-                const pdfId = 'pdf-' + Math.random().toString(36).substr(2, 9); // 生成随机ID
-                // 返回PDF嵌入容器
-                return `
-                <div class="pdf-container">
-                    <div class="pdf-header">
-                        <span class="pdf-title">${text || 'PDF文档'}</span>
-                        <a href="${href}" target="_blank" class="pdf-external-link" title="在新窗口打开PDF">
-                            <i class="fas fa-external-link-alt"></i>
-                        </a>
-                    </div>
-                    <iframe id="${pdfId}" src="${href}" class="pdf-iframe" title="${text || 'PDF嵌入'}" allowfullscreen></iframe>
-                </div>`;
+            // 检查href是否存在且是字符串类型
+            if (href && typeof href === 'string') {
+                // 检查链接是否指向PDF文件
+                if (href.toLowerCase().endsWith('.pdf')) {
+                    const pdfId = 'pdf-' + Math.random().toString(36).substr(2, 9); // 生成随机ID
+                    // 返回PDF嵌入容器
+                    return `
+                    <div class="pdf-container">
+                        <div class="pdf-header">
+                            <span class="pdf-title">${text || 'PDF文档'}</span>
+                            <a href="${href}" target="_blank" class="pdf-external-link" title="在新窗口打开PDF">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                        <iframe id="${pdfId}" src="${href}" class="pdf-iframe" title="${text || 'PDF嵌入'}" allowfullscreen></iframe>
+                    </div>`;
+                }
             }
-            // 对于非PDF链接，使用原始渲染器
+            // 对于非PDF链接或href不是字符串的情况，使用原始渲染器
             return originalLinkRenderer.call(this, href, title, text);
         };
         
