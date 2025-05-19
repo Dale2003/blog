@@ -1,6 +1,4 @@
-# 我的第一篇博客文章
-
-发布时间：2025年5月19日
+前言：此文由copilot生成，目的是介绍这个blog框架的使用。
 
 ## 欢迎来到我的博客
 
@@ -73,9 +71,9 @@ Markdown 是一种轻量级的标记语言，您可以使用简单的标记语�
 
 ### 链接和图片
 
-[链接文本](https://example.com)
+[宇航员dale的主页](http://dale2003.cn)
 
-![图片描述](/images/example.jpg)
+![示例图片](/images/avatar.jpg)
 
 ## 结语
 

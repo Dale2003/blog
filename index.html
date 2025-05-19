@@ -3,19 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的博客</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#fff">
+    <!-- 自定义应用名称 -->
+    <meta name="application-name" content="宇航员Dale的博客">
+    
+    <title>宇航员Dale的博客</title>
     <link rel="stylesheet" href="css/style.css">
+    <!-- 添加一些字体图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <header>
         <div class="container">
-            <h1>我的博客</h1>
-            <p>分享我的想法和经验</p>
+            <div class="header-content">
+                <div class="avatar-container">
+                    <img src="images/avatar.jpg" alt="Dale的头像" class="avatar">
+                </div>
+                <div class="site-info">
+                    <h1>宇航员Dale的博客</h1>
+                    <p>分享奇怪的想法和一些没什么用的经验，可能还会有一些奇怪的碎碎念。</p>
+                </div>
+                <div class="header-links">
+                    <a href="https://dale2003.cn" class="homepage-link" target="_blank">
+                        <i class="fas fa-home"></i> dale2003.cn
+                    </a>
+                    <a href="https://github.com/Dale2003/blog" class="github-link" target="_blank">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                </div>
+            </div>
         </div>
     </header>
 
     <main>
         <div class="container">
+            <!-- 添加搜索和排序功能 -->
+            <div class="blog-controls">
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="搜索文章..." class="search-input">
+                    <button id="searchButton" class="search-button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <div class="sort-container">
+                    <label for="sortSelect">排序方式：</label>
+                    <select id="sortSelect" class="sort-select">
+                        <option value="date-desc">日期（最新）</option>
+                        <option value="date-asc">日期（最早）</option>
+                        <option value="length-desc">字数（多到少）</option>
+                        <option value="length-asc">字数（少到多）</option>
+                    </select>
+                </div>
+            </div>
+            
             <div class="blog-list" id="blogList">
                 <!-- 博客文章列表将通过 JavaScript 动态加载 -->
                 <div class="loading">加载中...</div>
@@ -25,7 +67,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 我的博客. 保留所有权利.</p>
+            <p>&copy; 2025 宇航员Dale，All rights reserved.</p>
         </div>
     </footer>
 

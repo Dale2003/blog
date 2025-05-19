@@ -10,6 +10,7 @@ body {
     line-height: 1.6;
     color: #333;
     background-color: #f9f9f9;
+    background-image: linear-gradient(to bottom, #f9f9f9 0%, #f3f3f3 100%);
 }
 
 .container {
@@ -21,23 +22,59 @@ body {
 a {
     color: #4285f4;
     text-decoration: none;
+    transition: all 0.3s ease;
 }
 
 a:hover {
     text-decoration: underline;
+    color: #3367d6;
 }
 
 /* 头部样式 */
 header {
     background-color: #4285f4;
+    background-image: linear-gradient(135deg, #4285f4 0%, #3367d6 100%);
     color: white;
-    padding: 40px 0;
+    padding: 30px 0;
     margin-bottom: 30px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* 新增：头部布局样式 */
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* 新增：头像样式 */
+.avatar-container {
+    margin-right: 20px;
+}
+
+.avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid white;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.avatar:hover {
+    transform: scale(1.05);
+}
+
+/* 新增：站点信息样式 */
+.site-info {
+    flex-grow: 1;
 }
 
 header h1 {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     margin-bottom: 5px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 header a {
@@ -46,8 +83,109 @@ header a {
 }
 
 header p {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     opacity: 0.9;
+}
+
+/* 新增：头部链接样式 */
+.header-links {
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.homepage-link, .github-link {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.homepage-link:hover, .github-link:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+
+.github-link {
+    background-color: rgba(36, 41, 46, 0.7); /* GitHub 的标志性深色 */
+}
+
+.github-link:hover {
+    background-color: rgba(36, 41, 46, 0.9);
+}
+
+/* 新增：搜索和排序控件样式 */
+.blog-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.search-container {
+    display: flex;
+    flex: 1;
+    max-width: 500px;
+}
+
+.search-input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 20px 0 0 20px;
+    font-size: 1rem;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #4285f4;
+    box-shadow: inset 0 1px 3px rgba(66, 133, 244, 0.3);
+}
+
+.search-button {
+    background-color: #4285f4;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 0 20px 20px 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+    background-color: #3367d6;
+}
+
+.sort-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sort-select {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    background-color: white;
+    color: #333;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.sort-select:focus {
+    outline: none;
+    border-color: #4285f4;
+    box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
 }
 
 /* 博客列表样式 */
@@ -60,14 +198,20 @@ header p {
 
 .blog-card {
     background-color: white;
-    border-radius: 8px;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    cursor: pointer; /* 添加指针光标表明整个卡片是可点击的 */
+    display: block; /* 确保卡片是一个块级元素，这样整个元素都可点击 */
+    text-decoration: none; /* 移除默认的链接下划线 */
+    color: inherit; /* 继承父元素的颜色 */
 }
 
 .blog-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 .blog-card img {
@@ -77,54 +221,97 @@ header p {
 }
 
 .blog-card-content {
-    padding: 20px;
+    padding: 25px;
 }
 
 .blog-card h2 {
     font-size: 1.5rem;
     margin-bottom: 10px;
+    color: #222;
 }
 
 .blog-card-date {
     color: #666;
     font-size: 0.9rem;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.blog-card-date i {
+    margin-right: 5px;
+    color: #4285f4;
+}
+
+.word-count {
+    display: inline-flex;
+    align-items: center;
+    color: #666;
 }
 
 .blog-card-excerpt {
     color: #555;
     margin-bottom: 15px;
+    line-height: 1.7;
 }
 
 .read-more {
     display: inline-block;
     color: #4285f4;
     font-weight: bold;
+    padding: 5px 0;
+    position: relative;
+}
+
+.read-more:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #4285f4;
+    transition: width 0.3s ease;
+}
+
+.read-more:hover:after {
+    width: 100%;
 }
 
 /* 单篇博客文章样式 */
 .post-container {
     background-color: white;
-    border-radius: 8px;
+    border-radius: 12px;
     padding: 40px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
     margin-bottom: 40px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .post-header {
-    margin-bottom: 30px;
+    margin-bottom: 20px; /* 减小了标题与内容的间距 */
     border-bottom: 1px solid #eee;
-    padding-bottom: 20px;
+    padding-bottom: 15px; /* 减小了内边距 */
 }
 
 .post-header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
+    font-size: 2.3rem;
+    margin-bottom: 8px; /* 减小了标题与元数据的间距 */
+    color: #222;
 }
 
 .post-meta {
     color: #666;
     font-size: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.post-meta i {
+    margin-right: 5px;
+    color: #4285f4;
 }
 
 .post-content {
@@ -139,6 +326,7 @@ header p {
 .post-content h5,
 .post-content h6 {
     margin: 1.5em 0 0.5em;
+    color: #222;
 }
 
 .post-content p,
@@ -147,19 +335,31 @@ header p {
     margin-bottom: 1.2em;
 }
 
+/* 修复有序列表和无序列表的样式，防止数字标号溢出 */
+.post-content ul,
+.post-content ol {
+    padding-left: 2em; /* 增加左边距，使数字标号不会溢出 */
+}
+
+.post-content li {
+    margin-bottom: 0.5em; /* 为列表项添加间距 */
+}
+
 .post-content img {
     max-width: 100%;
     height: auto;
-    border-radius: 4px;
+    border-radius: 8px;
     margin: 20px 0;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }
 
 .post-content pre {
     background-color: #f5f5f5;
     padding: 15px;
-    border-radius: 4px;
+    border-radius: 8px;
     overflow-x: auto;
     margin: 20px 0;
+    border: 1px solid #eee;
 }
 
 .post-content code {
@@ -167,6 +367,16 @@ header p {
     background-color: #f5f5f5;
     padding: 2px 5px;
     border-radius: 3px;
+    font-size: 0.9em;
+    border: 1px solid #eee;
+}
+
+.post-content blockquote {
+    border-left: 4px solid #4285f4;
+    padding-left: 20px;
+    margin: 20px 0;
+    color: #555;
+    font-style: italic;
 }
 
 /* 页脚样式 */
@@ -175,6 +385,12 @@ footer {
     color: #fff;
     padding: 30px 0;
     text-align: center;
+    margin-top: 50px;
+    box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.1);
+}
+
+footer p {
+    opacity: 0.8;
 }
 
 .loading {
@@ -182,4 +398,45 @@ footer {
     padding: 40px;
     font-size: 1.2rem;
     color: #666;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .avatar-container {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+    
+    .site-info {
+        margin-bottom: 15px;
+    }
+    
+    .header-links {
+        margin-left: 0;
+    }
+    
+    .post-container,
+    .blog-card-content {
+        padding: 20px;
+    }
+    
+    .post-header h1 {
+        font-size: 1.8rem;
+    }
+    
+    /* 响应式搜索和排序控件 */
+    .blog-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .search-container {
+        max-width: 100%;
+        margin-bottom: 15px;
+    }
 }

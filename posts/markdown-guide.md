@@ -1,6 +1,4 @@
-# Markdown 写作指南
-
-发布时间：2025年5月18日
+前言：本文由copilot生成，介绍markdown相关语法及使用。
 
 ## Markdown 简介
 
@@ -91,7 +89,6 @@ Markdown 是一种轻量级标记语言，创建于2004年，它允许人们使�
 ![替代文本](图片URL "可选标题")
 ```
 
-![Markdown Logo](images/markdown.jpg "Markdown Logo")
 
 ### 7. 引用
 

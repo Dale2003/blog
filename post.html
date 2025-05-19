@@ -3,14 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>文章 - 我的博客</title>
+    <title>文章 - 宇航员Dale的博客</title>
     <link rel="stylesheet" href="css/style.css">
+    <!-- 添加一些字体图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <header>
         <div class="container">
-            <h1><a href="index.html">我的博客</a></h1>
-            <p>分享我的想法和经验</p>
+            <div class="header-content">
+                <div class="avatar-container">
+                    <img src="images/avatar.jpg" alt="Dale的头像" class="avatar">
+                </div>
+                <div class="site-info">
+                    <h1><a href="index.html">宇航员Dale的博客</a></h1>
+                    <p>分享奇怪的想法和一些没什么用的经验</p>
+                </div>
+                <div class="header-links">
+                    <a href="https://dale2003.cn" class="homepage-link" target="_blank">
+                        <i class="fas fa-home"></i> dale2003.cn
+                    </a>
+                    <a href="https://github.com/Dale2003/blog" class="github-link" target="_blank">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -20,7 +37,7 @@
                 <div class="post-header">
                     <h1 id="postTitle">文章标题</h1>
                     <div class="post-meta">
-                        <span id="postDate">发布日期</span>
+                        <i class="far fa-calendar-alt"></i> <span id="postDate">发布日期</span>
                     </div>
                 </div>
                 <div class="post-content" id="postContent">
@@ -33,7 +50,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 我的博客. 保留所有权利.</p>
+            <p>&copy; 2025 宇航员Dale. 保留所有权利.</p>
         </div>
     </footer>
 
