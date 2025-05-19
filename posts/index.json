@@ -25,5 +25,50 @@
         "thumbnail": "images/dns-test.jpg",
         "contentPath": "/posts/dns-test.md",
         "tags": ["DNS", "网络安全", "实验"]
+    },
+    {
+        "id": "dns-q3",
+        "title": "DNS放大攻击分析与实现",
+        "date": "2024-11-20",
+        "excerpt": "使用pyshark分析pcap文件，找出大响应域名，并尝试DNS放大攻击方案的实现。",
+        "thumbnail": "images/avatar.jpg",
+        "contentPath": "/posts/DNS_q3.md",
+        "tags": ["DNS", "网络安全", "Python", "攻防实验"]
+    },
+    {
+        "id": "digital-circuit-lab2",
+        "title": "数电实验：七段数码管显示器设计",
+        "date": "2023-04-09",
+        "excerpt": "设计数字电路实现Binary-to-7-Segment译码器，能够实现多种显示模式的七段数码管控制系统。",
+        "thumbnail": "images/avatar.jpg",
+        "contentPath": "/posts/lab2实验报告.md",
+        "tags": ["数字电路", "Verilog", "实验报告"]
+    },
+    {
+        "id": "digital-circuit-lab3",
+        "title": "数电实验：多功能显示控制器与记分牌设计",
+        "date": "2024-04-17",
+        "excerpt": "扩展数电实验，实现多功能显示控制器，包括拨码开关显示、计数器和篮球比赛记分牌功能。",
+        "thumbnail": "images/avatar.jpg",
+        "contentPath": "/posts/lab3实验报告.md",
+        "tags": ["数字电路", "Verilog", "实验报告"]
+    },
+    {
+        "id": "probability-theory",
+        "title": "概率论与随机过程笔记",
+        "date": "2023-05-09",
+        "excerpt": "概率论与随机过程课程的详细笔记，包括概率定义、随机变量分布、期望方差等内容。",
+        "thumbnail": "images/avatar.jpg",
+        "contentPath": "/posts/概率论.md",
+        "tags": ["概率论", "数学", "学习笔记"]
+    },
+    {
+        "id": "stochastic-process",
+        "title": "随机过程作业与例题",
+        "date": "2025-06-15",
+        "excerpt": "随机过程课程的作业和例题解析，帮助深入理解随机过程的应用。",
+        "thumbnail": "images/avatar.jpg",
+        "contentPath": "/posts/随机过程作业&例题.md",
+        "tags": ["随机过程", "数学", "例题解析"]
     }
 ]

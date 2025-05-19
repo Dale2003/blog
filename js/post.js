@@ -77,6 +77,11 @@ async function renderMarkdown(contentPath, container) {
         
         // 为所有图片添加点击预览功能
         setupImagePreview(container);
+        
+        // 渲染数学公式
+        if (window.MathJax) {
+            MathJax.typeset();
+        }
     } catch (error) {
         console.error('渲染Markdown时出错:', error);
         container.innerHTML = `<div class="error">加载文章内容时出错: ${error.message}</div>`;
