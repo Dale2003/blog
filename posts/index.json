@@ -133,5 +133,14 @@
         "thumbnail": "images/avatar.jpg",
         "contentPath": "/posts/纳米.pdf",
         "tags": ["纳米电子学", "考试", "复习资料"]
+    },
+    {
+        "id": "taijiquan",
+        "title": "太极拳课程学习笔记",
+        "date": "2025-05-22",
+        "excerpt": "太极拳期末突击",
+        "thumbnail": "images/taijiquan.jpg",
+        "contentPath": "/posts/taijiquan.md",
+        "tags": ["太极拳", "体育", "学习笔记"]
     }
 ]
