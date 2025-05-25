@@ -589,3 +589,79 @@ footer p {
         margin-bottom: 15px;
     }
 }
+
+/* 新增：刷新按钮样式 */
+.refresh-container {
+    display: flex;
+    align-items: center;
+}
+
+.refresh-button {
+    background-color: #4285f4;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.refresh-button i {
+    font-size: 0.9rem;
+}
+
+.refresh-button:hover {
+    background-color: #3367d6;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(66, 133, 244, 0.3);
+}
+
+.refresh-button:active {
+    transform: translateY(0);
+}
+
+/* 通知样式 */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: white;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-20px);
+    opacity: 0;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    max-width: 90%;
+}
+
+.notification.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.notification-success {
+    background-color: #4CAF50;
+}
+
+.notification-error {
+    background-color: #f44336;
+}
+
+/* 旋转动画 */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.fa-spinner.fa-spin {
+    animation: spin 1s linear infinite;
+}

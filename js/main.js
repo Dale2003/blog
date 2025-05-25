@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // 获取加载更多按钮容器和按钮
     const loadMoreContainer = document.getElementById('loadMoreContainer');
     const loadMoreButton = document.getElementById('loadMoreButton');
+    // 获取刷新按钮
+    const refreshButton = document.getElementById('refreshButton');
     
     // 声明一个变量来存储所有文章
     let allPosts = [];
@@ -91,6 +93,68 @@ document.addEventListener('DOMContentLoaded', () => {
         // 加载下一页
         loadNextPage();
     });
+    
+    // 添加刷新按钮点击事件
+    refreshButton.addEventListener('click', () => {
+        // 显示加载状态
+        refreshButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 刷新中...';
+        refreshButton.disabled = true;
+        
+        // 清除本地存储中的缓存
+        localStorage.removeItem('blogPosts');
+        localStorage.removeItem('blogPostsTimestamp');
+        
+        // 重新获取文章列表
+        fetchBlogPosts(true)
+            .then(posts => {
+                // 保存所有文章
+                allPosts = posts;
+                
+                // 重新加载第一页
+                loadPostsPage(1, currentSortMethod, currentSearchTerm);
+                
+                // 恢复按钮状态
+                refreshButton.innerHTML = '<i class="fas fa-sync-alt"></i> 刷新';
+                refreshButton.disabled = false;
+                
+                // 显示提示
+                showNotification('文章列表已刷新');
+            })
+            .catch(error => {
+                console.error('刷新文章列表时出错:', error);
+                
+                // 恢复按钮状态
+                refreshButton.innerHTML = '<i class="fas fa-sync-alt"></i> 刷新';
+                refreshButton.disabled = false;
+                
+                // 显示错误提示
+                showNotification('刷新失败，请稍后再试', true);
+            });
+    });
+    
+    // 显示通知提示
+    function showNotification(message, isError = false) {
+        // 创建通知元素
+        const notification = document.createElement('div');
+        notification.className = `notification ${isError ? 'notification-error' : 'notification-success'}`;
+        notification.textContent = message;
+        
+        // 添加到页面
+        document.body.appendChild(notification);
+        
+        // 显示通知
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 10);
+        
+        // 自动关闭通知
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 300);
+        }, 3000);
+    }
     
     // 执行搜索
     function performSearch() {
