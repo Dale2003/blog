@@ -142,5 +142,14 @@
         "thumbnail": "images/taijiquan.jpg",
         "contentPath": "/posts/taijiquan.md",
         "tags": ["太极拳", "体育", "学习笔记"]
+    },
+    {
+        "id": "mac-hmcl-java-installation",
+        "title": "在macOS上安装HMCL和Java的完整指南",
+        "date": "2025-05-25",
+        "excerpt": "详细记录在macOS系统上安装并运行HMCL（Hello Minecraft! Launcher）的完整过程，包括Java环境配置和问题解决方案。",
+        "thumbnail": "images/hmcl-mac.jpeg",
+        "contentPath": "/posts/mac-hmcl-java-installation.md",
+        "tags": ["Java", "Minecraft", "HMCL", "macOS", "教程"]
     }
 ]
