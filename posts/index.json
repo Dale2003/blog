@@ -95,7 +95,7 @@
             "数学",
             "学习笔记"
         ],
-        "wordCount": 3000
+        "wordCount": 1480
     },
     {
         "id": "stochastic-process",
@@ -109,7 +109,7 @@
             "数学",
             "例题解析"
         ],
-        "wordCount": 3000
+        "wordCount": 635
     },
     {
         "id": "ml-svm-comparison",
@@ -125,20 +125,6 @@
             "随机森林"
         ],
         "wordCount": 679
-    },
-    {
-        "id": "digital-circuit-lab4",
-        "title": "数电实验：时序逻辑电路设计与实现",
-        "date": "2023-05-20",
-        "excerpt": "数电实验的第四部分，设计和实现时序逻辑电路。",
-        "thumbnail": "images/avatar.jpg",
-        "contentPath": "/posts/lab4实验报告.md",
-        "tags": [
-            "数字电路",
-            "Verilog",
-            "实验报告"
-        ],
-        "wordCount": 1350
     },
     {
         "id": "solar-system",
@@ -196,7 +182,7 @@
             "总结",
             "学习计划"
         ],
-        "wordCount": 3000
+        "wordCount": 1574
     },
     {
         "id": "nanoelectronics-cheatingpaper",
@@ -210,7 +196,7 @@
             "考试",
             "复习资料"
         ],
-        "wordCount": 3000
+        "wordCount": 6755
     },
     {
         "id": "taijiquan",
