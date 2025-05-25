@@ -22,6 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentSortMethod = 'date-desc';
     // 当前搜索关键词
     let currentSearchTerm = '';
+    // 标记是否正在加载
+    let isLoading = false;
 
     // 获取博客文章列表
     fetchBlogPosts()
@@ -31,21 +33,49 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // 初始加载时按日期（最新）排序并渲染第一页文章
             loadPostsPage(1, 'date-desc', '');
+            
+            // 启用无限滚动
+            enableInfiniteScroll();
         })
         .catch(error => {
             blogList.innerHTML = `<div class="error">加载博客列表时出错: ${error.message}</div>`;
             console.error('加载博客列表时出错:', error);
         });
     
+    // 启用无限滚动功能
+    function enableInfiniteScroll() {
+        // 创建一个Intersection Observer来监测页面底部
+        const observer = new IntersectionObserver((entries) => {
+            // 如果底部元素可见并且不在加载中状态
+            if (entries[0].isIntersecting && !isLoading) {
+                // 检查是否还有更多文章可加载
+                const filteredPosts = searchPosts(allPosts, currentSearchTerm);
+                const totalPosts = filteredPosts.length;
+                const loadedPosts = currentPage * postsPerPage;
+                
+                if (loadedPosts < totalPosts) {
+                    loadNextPage();
+                }
+            }
+        }, {
+            root: null, // 使用视口作为根元素
+            rootMargin: '0px 0px 200px 0px', // 提前200px触发
+            threshold: 0.1 // 当目标元素10%可见时触发
+        });
+        
+        // 监测加载更多按钮容器
+        observer.observe(loadMoreContainer);
+    }
+    
     // 搜索按钮点击事件
     searchButton.addEventListener('click', () => {
-        searchPosts();
+        performSearch();
     });
     
     // 搜索输入框回车事件
     searchInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
-            searchPosts();
+            performSearch();
         }
     });
     
@@ -62,18 +92,40 @@ document.addEventListener('DOMContentLoaded', () => {
         loadNextPage();
     });
     
-    // 搜索文章函数
-    function searchPosts() {
+    // 执行搜索
+    function performSearch() {
         const searchTerm = searchInput.value.trim().toLowerCase();
         currentSearchTerm = searchTerm;
         // 重新加载第一页
         loadPostsPage(1, currentSortMethod, searchTerm);
     }
     
+    // 搜索文章函数（仅过滤，不渲染）
+    function searchPosts(posts, searchTerm) {
+        if (!searchTerm) return posts;
+        return posts.filter(post => 
+            post.title.toLowerCase().includes(searchTerm) || 
+            post.excerpt.toLowerCase().includes(searchTerm)
+        );
+    }
+    
     // 加载下一页文章
     function loadNextPage() {
-        currentPage++;
-        loadPostsPage(currentPage, currentSortMethod, currentSearchTerm, true);
+        isLoading = true;
+        // 显示加载指示器
+        loadMoreButton.textContent = '加载中...';
+        loadMoreButton.disabled = true;
+        
+        // 模拟网络延迟，避免过快加载导致的闪烁
+        setTimeout(() => {
+            currentPage++;
+            loadPostsPage(currentPage, currentSortMethod, currentSearchTerm, true);
+            
+            // 恢复加载按钮状态
+            loadMoreButton.textContent = '加载更多';
+            loadMoreButton.disabled = false;
+            isLoading = false;
+        }, 300);
     }
     
     // 加载指定页码的文章
@@ -87,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // 过滤文章
         let filteredPosts = searchTerm ? 
-            filterPosts(allPosts, searchTerm) : 
+            searchPosts(allPosts, searchTerm) : 
             [...allPosts];
         
         // 排序文章
@@ -127,14 +179,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    // 过滤文章函数
-    function filterPosts(posts, searchTerm) {
-        return posts.filter(post => 
-            post.title.toLowerCase().includes(searchTerm) || 
-            post.excerpt.toLowerCase().includes(searchTerm)
-        );
-    }
-    
     // 排序文章函数
     function sortPosts(posts, sortMethod) {
         const postsCopy = [...posts]; // 创建副本，不修改原数组
@@ -157,75 +201,43 @@ document.addEventListener('DOMContentLoaded', () => {
 // 获取博客文章列表
 async function fetchBlogPosts() {
     try {
+        // 尝试从本地存储读取缓存的文章列表
+        const cachedPosts = localStorage.getItem('blogPosts');
+        const cacheTimestamp = localStorage.getItem('blogPostsTimestamp');
+        
+        // 如果有缓存且缓存时间在24小时内，直接使用缓存
+        if (cachedPosts && cacheTimestamp) {
+            const now = new Date().getTime();
+            const cacheTime = parseInt(cacheTimestamp);
+            // 缓存有效期为24小时
+            if (now - cacheTime < 24 * 60 * 60 * 1000) {
+                console.log('使用缓存的文章列表');
+                return JSON.parse(cachedPosts);
+            }
+        }
+        
+        // 如果没有缓存或缓存已过期，则从服务器获取
         const response = await fetch('/posts/index.json');
         if (!response.ok) {
             throw new Error(`HTTP 错误! 状态: ${response.status}`);
         }
         const posts = await response.json();
         
-        // 为每篇文章添加字数统计
-        for (const post of posts) {
-            try {
-                // 使用正确的文件路径从contentPath获取
-                const contentPath = post.contentPath || `/posts/${post.id}.md`;
-                const contentResponse = await fetch(contentPath);
-                if (contentResponse.ok) {
-                    const content = await contentResponse.text();
-                    // 字数统计
-                    post.wordCount = countWords(content);
-                } else {
-                    console.error(`无法加载文章 ${post.id} 内容，HTTP 状态码: ${contentResponse.status}`);
-                    post.wordCount = 0;
-                }
-            } catch (error) {
-                console.error(`获取文章 ${post.id} 内容时出错:`, error);
-                post.wordCount = 0;
-            }
-        }
+        // 更新缓存
+        localStorage.setItem('blogPosts', JSON.stringify(posts));
+        localStorage.setItem('blogPostsTimestamp', new Date().getTime().toString());
         
         return posts;
     } catch (error) {
         console.error('获取博客列表时出错:', error);
+        // 如果出错但有缓存，则使用缓存的数据
+        const cachedPosts = localStorage.getItem('blogPosts');
+        if (cachedPosts) {
+            console.log('获取文章列表出错，使用缓存数据');
+            return JSON.parse(cachedPosts);
+        }
         return [];
     }
-}
-
-// 计算文本字数
-function countWords(text) {
-    if (!text) return 0;
-    
-    // 去除前言部分 (通常以"前言："开头的部分)
-    text = text.replace(/^前言：.*?\n\n/s, '');
-    
-    // 去除Markdown标记和特殊字符
-    const cleanText = text
-        .replace(/```[\s\S]*?```/g, '') // 代码块
-        .replace(/`.*?`/g, '')          // 行内代码
-        .replace(/\[.*?\]\(.*?\)/g, '') // 链接
-        .replace(/\!\[.*?\]\(.*?\)/g, '') // 图片
-        .replace(/\*\*.*?\*\*/g, '$1')   // 保留粗体内容
-        .replace(/\*.*?\*/g, '$1')       // 保留斜体内容
-        .replace(/#/g, '')               // 标题符号
-        .replace(/^\s*[>\|-]/gm, '')     // 引用和表格符号
-        .replace(/\$\$[\s\S]*?\$\$/g, '') // 数学公式块
-        .replace(/\$.*?\$/g, '')         // 内联数学公式
-        .replace(/\\[a-zA-Z]+/g, '')     // LaTeX命令
-        .replace(/[\{\}]/g, '')          // 花括号
-        .replace(/\\/g, '')              // 反斜杠
-        .trim();
-    
-    // 中文和英文混合字数统计
-    // 对于中文字符和英文单词分别计数
-    const chineseMatch = cleanText.match(/[\u4e00-\u9fa5]/g);
-    const chineseCount = chineseMatch ? chineseMatch.length : 0;
-    
-    // 计算英文单词数
-    const englishText = cleanText.replace(/[\u4e00-\u9fa5]/g, '');
-    const englishWords = englishText.split(/\s+/).filter(word => word.length > 0);
-    const englishCount = englishWords.length;
-    
-    // 返回中文字符数和英文单词数的总和
-    return chineseCount + englishCount;
 }
 
 // 创建博客卡片元素
@@ -238,8 +250,11 @@ function createPostCard(post) {
     // 使用默认图片，如果文章没有提供缩略图
     const thumbnailUrl = post.thumbnail || 'images/default-thumbnail.jpg';
     
+    // 使用懒加载方式处理图片
     card.innerHTML = `
-        <img src="${thumbnailUrl}" alt="${post.title}">
+        <div class="blog-card-image">
+            <img loading="lazy" src="${thumbnailUrl}" alt="${post.title}">
+        </div>
         <div class="blog-card-content">
             <h2>${post.title}</h2>
             <div class="blog-card-date">

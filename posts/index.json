@@ -6,7 +6,11 @@
         "excerpt": "（AI生成）这是我博客的第一篇文章，介绍了如何使用这个博客系统。",
         "thumbnail": "images/avatar.jpg",
         "contentPath": "/posts/first-post.md",
-        "tags": ["博客", "教程"]
+        "tags": [
+            "博客",
+            "教程"
+        ],
+        "wordCount": 346
     },
     {
         "id": "markdown-guide",
@@ -15,7 +19,12 @@
         "excerpt": "（AI生成）学习如何使用 Markdown 格式来撰写漂亮的博客文章。",
         "thumbnail": "images/md.jpg",
         "contentPath": "/posts/markdown-guide.md",
-        "tags": ["Markdown", "写作", "教程"]
+        "tags": [
+            "Markdown",
+            "写作",
+            "教程"
+        ],
+        "wordCount": 622
     },
     {
         "id": "dns-test",
@@ -24,7 +33,12 @@
         "excerpt": "在本地环境中尝试 DNS 放大攻击的实验记录。",
         "thumbnail": "images/dns-test.jpg",
         "contentPath": "/posts/dns-test.md",
-        "tags": ["DNS", "网络安全", "实验"]
+        "tags": [
+            "DNS",
+            "网络安全",
+            "实验"
+        ],
+        "wordCount": 726
     },
     {
         "id": "dns-q3",
@@ -33,7 +47,13 @@
         "excerpt": "使用pyshark分析pcap文件，找出大响应域名，并尝试DNS放大攻击方案的实现。",
         "thumbnail": "images/avatar.jpg",
         "contentPath": "/posts/DNS_q3.md",
-        "tags": ["DNS", "网络安全", "Python", "攻防实验"]
+        "tags": [
+            "DNS",
+            "网络安全",
+            "Python",
+            "攻防实验"
+        ],
+        "wordCount": 170
     },
     {
         "id": "digital-circuit-lab2",
@@ -42,7 +62,12 @@
         "excerpt": "设计数字电路实现Binary-to-7-Segment译码器，能够实现多种显示模式的七段数码管控制系统。",
         "thumbnail": "images/avatar.jpg",
         "contentPath": "/posts/lab2实验报告.md",
-        "tags": ["数字电路", "Verilog", "实验报告"]
+        "tags": [
+            "数字电路",
+            "Verilog",
+            "实验报告"
+        ],
+        "wordCount": 533
     },
     {
         "id": "digital-circuit-lab3",
@@ -51,7 +76,12 @@
         "excerpt": "扩展数电实验，实现多功能显示控制器，包括拨码开关显示、计数器和篮球比赛记分牌功能。",
         "thumbnail": "images/avatar.jpg",
         "contentPath": "/posts/lab3实验报告.md",
-        "tags": ["数字电路", "Verilog", "实验报告"]
+        "tags": [
+            "数字电路",
+            "Verilog",
+            "实验报告"
+        ],
+        "wordCount": 731
     },
     {
         "id": "probability-theory",
@@ -60,7 +90,12 @@
         "excerpt": "概率论与随机过程课程的详细笔记，包括概率定义、随机变量分布、期望方差等内容。",
         "thumbnail": "images/avatar.jpg",
         "contentPath": "/posts/概率论.pdf",
-        "tags": ["概率论", "数学", "学习笔记"]
+        "tags": [
+            "概率论",
+            "数学",
+            "学习笔记"
+        ],
+        "wordCount": 3000
     },
     {
         "id": "stochastic-process",
@@ -69,7 +104,12 @@
         "excerpt": "随机过程课程的作业和例题解析，帮助深入理解随机过程的应用。",
         "thumbnail": "images/avatar.jpg",
         "contentPath": "/posts/随机过程作业&例题.pdf",
-        "tags": ["随机过程", "数学", "例题解析"]
+        "tags": [
+            "随机过程",
+            "数学",
+            "例题解析"
+        ],
+        "wordCount": 3000
     },
     {
         "id": "ml-svm-comparison",
@@ -78,7 +118,13 @@
         "excerpt": "使用Python实现线性核和高斯核的支持向量机（SVM），并与决策树和随机森林进行比较。",
         "thumbnail": "images/avatar.jpg",
         "contentPath": "/posts/作业5.md",
-        "tags": ["机器学习", "SVM", "决策树", "随机森林"]
+        "tags": [
+            "机器学习",
+            "SVM",
+            "决策树",
+            "随机森林"
+        ],
+        "wordCount": 679
     },
     {
         "id": "digital-circuit-lab4",
@@ -87,7 +133,12 @@
         "excerpt": "数电实验的第四部分，设计和实现时序逻辑电路。",
         "thumbnail": "images/avatar.jpg",
         "contentPath": "/posts/lab4实验报告.md",
-        "tags": ["数字电路", "Verilog", "实验报告"]
+        "tags": [
+            "数字电路",
+            "Verilog",
+            "实验报告"
+        ],
+        "wordCount": 1350
     },
     {
         "id": "solar-system",
@@ -96,7 +147,12 @@
         "excerpt": "关于太阳系的科学复习资料，好像是往年题的解答。",
         "thumbnail": "images/avatar.jpg",
         "contentPath": "/posts/太阳系.md",
-        "tags": ["太阳系", "科学", "复习资料"]
+        "tags": [
+            "太阳系",
+            "科学",
+            "复习资料"
+        ],
+        "wordCount": 1925
     },
     {
         "id": "solar-system-homework1",
@@ -105,7 +161,13 @@
         "excerpt": "分析海王星与海卫一的运动关系、潮汐锁定现象以及行星与卫星间的潮汐作用规律。",
         "thumbnail": "images/avatar.jpg",
         "contentPath": "/posts/太阳系第一次作业.md",
-        "tags": ["太阳系", "天文学", "行星运动", "学习笔记"]
+        "tags": [
+            "太阳系",
+            "天文学",
+            "行星运动",
+            "学习笔记"
+        ],
+        "wordCount": 689
     },
     {
         "id": "gradient-descent-comparison",
@@ -114,7 +176,13 @@
         "excerpt": "比较标准梯度下降、随机梯度下降和小批量随机梯度下降算法在Boston房价数据集上的性能表现。",
         "thumbnail": "images/avatar.jpg",
         "contentPath": "/posts/不同梯度下降算法的比较.md",
-        "tags": ["机器学习", "梯度下降", "算法比较", "Python"]
+        "tags": [
+            "机器学习",
+            "梯度下降",
+            "算法比较",
+            "Python"
+        ],
+        "wordCount": 745
     },
     {
         "id": "ml-final-project",
@@ -123,7 +191,12 @@
         "excerpt": "机器学习课程的期末总结文档，包含课程内容回顾、项目总结和未来学习计划。",
         "thumbnail": "images/avatar.jpg",
         "contentPath": "/posts/机器学习期末总结.pdf",
-        "tags": ["机器学习", "总结", "学习计划"]
+        "tags": [
+            "机器学习",
+            "总结",
+            "学习计划"
+        ],
+        "wordCount": 3000
     },
     {
         "id": "nanoelectronics-cheatingpaper",
@@ -132,7 +205,12 @@
         "excerpt": "纳米电子学课程期中考试的cheatingpaper，包含课上重要内容的总结。",
         "thumbnail": "images/avatar.jpg",
         "contentPath": "/posts/纳米.pdf",
-        "tags": ["纳米电子学", "考试", "复习资料"]
+        "tags": [
+            "纳米电子学",
+            "考试",
+            "复习资料"
+        ],
+        "wordCount": 3000
     },
     {
         "id": "taijiquan",
@@ -141,7 +219,12 @@
         "excerpt": "太极拳期末突击",
         "thumbnail": "images/taijiquan.jpg",
         "contentPath": "/posts/taijiquan.md",
-        "tags": ["太极拳", "体育", "学习笔记"]
+        "tags": [
+            "太极拳",
+            "体育",
+            "学习笔记"
+        ],
+        "wordCount": 214
     },
     {
         "id": "mac-hmcl-java-installation",
@@ -150,6 +233,13 @@
         "excerpt": "详细记录在macOS系统上安装并运行HMCL（Hello Minecraft! Launcher）的完整过程，包括Java环境配置和问题解决方案。",
         "thumbnail": "images/hmcl-mac.jpeg",
         "contentPath": "/posts/mac-hmcl-java-installation.md",
-        "tags": ["Java", "Minecraft", "HMCL", "macOS", "教程"]
+        "tags": [
+            "Java",
+            "Minecraft",
+            "HMCL",
+            "macOS",
+            "教程"
+        ],
+        "wordCount": 532
     }
 ]
