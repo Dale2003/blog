@@ -227,5 +227,20 @@
             "教程"
         ],
         "wordCount": 532
+    },
+    {
+        "id": "eat-in-beijing",
+        "title": "学校附近的美食推荐",
+        "date": "2025-06-05",
+        "excerpt": "基于近一两年的经验，推荐学校附近的美食，给出简易评价和参考花销，仅供参考。",
+        "thumbnail": "images/avatar.jpg",
+        "contentPath": "/posts/eat-in-beijing.md",
+        "tags": [
+            "美食",
+            "北京",
+            "推荐",
+            "生活"
+        ],
+        "wordCount": 62
     }
 ]
